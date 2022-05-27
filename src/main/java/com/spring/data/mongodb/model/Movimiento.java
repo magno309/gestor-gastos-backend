@@ -1,5 +1,7 @@
 package com.spring.data.mongodb.model;
 
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +15,7 @@ public class Movimiento {
 
     @Id
     private String id;
-    private Long fecha;
+    private LocalDate fecha;
     private String descripcion;
     private Double cantidad;
     private Tipo tipo;
@@ -21,7 +23,7 @@ public class Movimiento {
     public Movimiento() {
     }
 
-    public Movimiento(String id, Long fecha, String descripcion, Double cantidad, Tipo tipo) {
+    public Movimiento(String id, LocalDate fecha, String descripcion, Double cantidad, Tipo tipo) {
         this.id = id;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -37,11 +39,11 @@ public class Movimiento {
         this.id = id;
     }
 
-    public Long getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Long fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -29,10 +30,19 @@ public class MovimientoController {
     MovimientoRepository movimientoRepository;
 
     @GetMapping("/movimientos")
-    public ResponseEntity<List<Movimiento>> getAllMovimientos() {
+    public ResponseEntity<List<Movimiento>> getAllMovimientos(@RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer month) {
         try {
             List<Movimiento> movimientos = new ArrayList<>();
-            movimientoRepository.findAll().forEach(movimientos::add);
+            if (year == null || month == null) {
+                movimientoRepository.findAll().forEach(movimientos::add);
+            } else {
+                movimientoRepository.findAll().forEach((m) -> {
+                    if(m.getFecha().getMonth().getValue() == month && m.getFecha().getYear() == year){
+                        movimientos.add(m);
+                    }
+                });
+            }
             if (movimientos.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
