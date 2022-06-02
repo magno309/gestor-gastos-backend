@@ -38,7 +38,7 @@ public class MovimientoController {
                 movimientoRepository.findAll().forEach(movimientos::add);
             } else {
                 movimientoRepository.findAll().forEach((m) -> {
-                    if(m.getFecha().getMonth().getValue() == month && m.getFecha().getYear() == year){
+                    if (m.getFecha().getMonth().getValue() == month && m.getFecha().getYear() == year) {
                         movimientos.add(m);
                     }
                 });
